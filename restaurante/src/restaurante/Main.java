@@ -7,5 +7,9 @@ public static void main(String[] args) {
 	
 	produto.cadastrar(produto);	
 	cardapio.mostraCardapio(produto);
+	
+	produto.editar(produto);
+	cardapio.mostraCardapio(produto);
+	
 }
 }
