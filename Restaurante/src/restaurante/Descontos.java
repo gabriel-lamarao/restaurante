@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package restaurante;
 
 /**
@@ -11,5 +6,7 @@ package restaurante;
  */
 
 public class Descontos {
-    
+    // Desconto de aniversário aniversario(Data aniversario)
+	// Desconto manual desconto(double valor)
+	// Desconto de fidelidade ()    
 }
