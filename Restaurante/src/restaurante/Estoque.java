@@ -29,9 +29,9 @@ public class Estoque {
             for (int i = 0; i < itens.length; i++){
                 novoArray[i] = itens[i];
             }
-        novoArray[itens.length] = it;
-        itens = novoArray;
-        controle++;
+            novoArray[itens.length] = it;
+            itens = novoArray;
+            controle++;
         }
     }
     
