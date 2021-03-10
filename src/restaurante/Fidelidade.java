@@ -20,11 +20,12 @@ public class Fidelidade extends Descontos{
 		}else if(cliente.pedidos >= 11 && cliente.pedidos <= 20) {
 			super.desconto = valor - (valor*nivel2);
 			return super.desconto;
-		}else if(cliente.pedidos >= 21 && cliente.pedidos <=30){
+		}else if(cliente.pedidos >= 21){
 			super.desconto = valor - (valor*nivel3);
 			return super.desconto;
+		}else {			
+			return super.descontoPadrao(valor);
 		}
-		return super.desconto;
 	}
 	// niveis de fidelidade
 	// nivel 1: de 0 a 10 x% de desconto

@@ -31,5 +31,5 @@ public class Descontos {
 	public double descontoFidelidade(double valor, Cliente cliente) {
 		return desconto;
 	}
-	// Desconto de aniversário aniversario(Data aniversario)
+	// Desconto de aniversário aniversario(Data aniversario) 30% desconto
 }
