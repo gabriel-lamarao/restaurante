@@ -57,7 +57,8 @@ public class Item {
     }
 
     public void exibirItem(){
-        System.out.println("Código: " + this.codigo);
+        System.out.println("");
+    	System.out.println("Código: " + this.codigo);
         System.out.println("Nome: " + this.nome);
         System.out.println("Preço: R$" + this.preco);
         System.out.println("Quantidade em estoque: " + this.quantidade);
@@ -101,7 +102,7 @@ public class Item {
         
             System.out.println("Insira o nome: ");
             this.nome = op.next();
-            System.out.println("Insira o preço");
+            System.out.println("Insira o preço: ");
             this.preco = op.nextDouble();
             totalDeProdutos = totalDeProdutos+1;
             
