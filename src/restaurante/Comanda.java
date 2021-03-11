@@ -11,7 +11,7 @@ public class Comanda {
 	private int totalItensPedidos;
 	private Item[] itensPedidos;
 	private double numPessoas;
-	Cliente cliente = new Cliente();
+	Cliente cliente;
 	Descontos descontos = new Descontos();
 	
 	Scanner entrada = new Scanner(System.in);
@@ -81,6 +81,7 @@ public class Comanda {
 	public void carrinho() {
 		System.out.println("Carrinho: " + totalItensPedidos + " Total: R$" + valorTotal + "\n");
 	}
+	
 
 	public void conta() {
 		if (totalItensPedidos > 0) {
