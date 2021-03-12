@@ -23,9 +23,7 @@ public class Cardapio {
             case 1:
                 for(int i=0; i < estoque.itens.length; i++) {
                     if(estoque.itens[i].getCategoria().equals("Comida") && estoque.itens[i].consta == true){
-                        System.out.println("\nCódigo: " + estoque.itens[i].codigo);
-                        System.out.println("Nome: " + estoque.itens[i].getNome());
-                        System.out.println("Preço: R$" + estoque.itens[i].getPreco()+"\n");
+                        System.out.println("Código: " + estoque.itens[i].codigo + "\nNome: " + estoque.itens[i].getNome() + "\nPreço: R$" + estoque.itens[i].getPreco());
                     }
                 }
             break;
@@ -83,7 +81,8 @@ public class Cardapio {
         }*/
     }
     
-    public void pedirDesconto() {
-    	comanda.descontos();
-    }
 }
+
+/*	for(int i=0; i < estoque.itens.length; i++) {
+            System.out.println("Categoria: " + estoque.itens[i].getCategoria() + "\nNome: " + estoque.itens[i].getNome() + "\nPreço: R$" + estoque.itens[i].getPreco());
+            }*/

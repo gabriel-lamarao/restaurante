@@ -1,7 +1,5 @@
 package restaurante;
-
 import java.util.Scanner;
-
 /**
  *
  * @authors Aíla Maciel, Gabriel Lamarão

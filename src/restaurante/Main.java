@@ -16,7 +16,8 @@ public class Main {
         int op;
         
         Estoque estoque = new Estoque(1);
-        Cardapio cardapio = new Cardapio();   
+        Cardapio cardapio = new Cardapio();  
+        Cliente cliente = new Cliente();
         
         do{
             System.out.println("Menu restaurante");
@@ -29,6 +30,7 @@ public class Main {
             System.out.println("6- Cardápio");
             System.out.println("7- Comanda");
             System.out.println("8- Balanço");
+            System.out.println("9- Clientes");
             System.out.println("99 - Sair");
         
             op = entrada.nextInt();
@@ -198,6 +200,40 @@ public class Main {
             
                 default:
                     System.out.println("Opção inválida");
+                break;
+                
+                case 9:
+                    do{
+                        System.out.println("Selecione a opção desejada: ");
+                        System.out.println("1- Cadastrar cliente");
+                        System.out.println("2- Desativar cliente");
+                        System.out.println("3- Procurar cadastro de cliente");
+                        System.out.println("98- Voltar ao menu principal");
+                        op = entrada.nextInt();
+                        
+                        switch(op){
+                            case 1:
+                                Cliente c = new Cliente();
+                                c.cadastrarCliente();
+                                c.adicionaCliente(c);                                
+                                System.out.println("Cliente cadastrado!");
+                                c.exibirCliente();
+                            break;
+                            
+                            case 2:
+                                //desativar cliente aqui
+                            break;
+                            
+                            case 3:
+                                //procurar cadastro aqui
+                            break;
+                            
+                            default:
+                                System.out.println("Opção inválida!");
+                            break;    
+                        }
+                        
+                    }while(op != 98);
                 break;    
             }
         } while(op != 99);

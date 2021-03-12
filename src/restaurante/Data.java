@@ -15,5 +15,4 @@ public class Data {
         System.out.println(dia + "/" + mes + "/" + ano);
     }
     
-    // Criar um método para receber aniversário
 }
