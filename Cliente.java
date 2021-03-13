@@ -1,7 +1,5 @@
 package restaurante;
 import java.util.Scanner;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 /**
  *
  * @author Aíla Maciel, Gabriel Lamarão
@@ -16,12 +14,10 @@ public class Cliente {
     protected boolean ativo;
     protected String cpf;
     protected boolean cpfvalido;
-    LocalDate nascimento;
     
     // Criar o vetor de clientes
     Cliente[] clientes; 
     
-    DateTimeFormatter formatadorBarra = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     Scanner entrada = new Scanner(System.in);
 	
     public Cliente() {
@@ -39,11 +35,11 @@ public class Cliente {
     }
 
     public String getCPF(){
-        return this.cpf;
+    return this.cpf;
     }
     
     public void setCPF(String cpf){
-        this.cpf = cpf;
+    this.cpf = cpf;
     }    
     
     public int getPedidos(){
@@ -84,12 +80,11 @@ public class Cliente {
             System.out.println("Digite a data de nascimento do cliente: ");
             System.out.println("Obs.: Formato DD/MM/AAAA");
             System.out.println("Dia: ");
-            int dia = entrada.nextInt();
+            this.aniversario.dia = entrada.nextInt();
             System.out.println("Mês: ");
-            int mes = entrada.nextInt();
+            this.aniversario.mes = entrada.nextInt();
             System.out.println("Ano: ");
-            int ano = entrada.nextInt();
-            this.nascimento = LocalDate.of(ano, mes, dia);
+            this.aniversario.ano = entrada.nextInt();
             totalDeClientes = totalDeClientes + 1;
         } else{
             System.out.println("Cadastre um CPF válido.");
@@ -103,7 +98,7 @@ public class Cliente {
     public void exibirCliente(){        
         System.out.println("Nome: " + this.nome);
         System.out.println("CPF: " + this.cpf);
-        System.out.println("Data de nascimento: " + this.nascimento.format(formatadorBarra));
+        System.out.println("Data de nascimento: " + this.aniversario.dia + "/" + this.aniversario.mes + "/" + this.aniversario.ano);
         //System.out.println("Nível no programa de fidelidade: ");
         if(this.ativo = true){
             System.out.println("Este cadastro está ativo");
