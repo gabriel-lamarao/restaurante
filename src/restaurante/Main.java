@@ -18,6 +18,8 @@ public class Main {
         Estoque estoque = new Estoque(1);
         Cardapio cardapio = new Cardapio();  
         Cliente cliente = new Cliente();
+        Clientes clientes = new Clientes(1);
+        Item item = new Item();
         
         do{
             System.out.println("Menu restaurante");
@@ -38,13 +40,13 @@ public class Main {
             int cod;
             int compara1 = 0;
             int compara2 = 0;
+            String comparaCpf;
         
             switch(op){
                 case 1:
-                    Item ii = new Item();
-                    ii.cadastra();
-                    ii.codigo = estoque.controle;
-                    estoque.adicionar(ii);
+                    item.cadastra();
+                    item.codigo = estoque.controle;
+                    estoque.adicionar(item);
                 break;
             
                 case 2:                
@@ -212,20 +214,37 @@ public class Main {
                         op = entrada.nextInt();
                         
                         switch(op){
-                            case 1:
-                                Cliente c = new Cliente();
-                                c.cadastrarCliente();
-                                c.adicionaCliente(c);                                
-                                System.out.println("Cliente cadastrado!");
-                                c.exibirCliente();
+						case 1:
+							cliente.cadastrarCliente();
+							if (cliente.cpfvalido == true) {
+								clientes.adicionar(cliente);
+								System.out.println("Cliente cadastrado!");
+								cliente.exibirCliente();
+								System.out.println(cliente.totalDeClientes);
+							} else {
+								System.out.println(" ");
+							}
                             break;
                             
                             case 2:
-                                //desativar cliente aqui
+                            	// desativar busca o cliente pelo cpf
+                            	System.out.println("Insira o cpf do cliente: ");
+                            	comparaCpf = entrada.next();
+                            	for(int i=0; i<clientes.clientes.length; i++) {
+                            		if(clientes.clientes[i].cpf == comparaCpf) {
+                            			clientes.clientes[i].desativa();
+                            		}else {
+                            			System.out.println("erro: cpf nao encontrado ou invalido!");
+                            		}
+                            	}
                             break;
                             
                             case 3:
-                                //procurar cadastro aqui
+                            	// procurar cliente na lista
+                            	System.out.println("Insira o cpf do cliente: ");
+                            	comparaCpf = entrada.next();
+                                clientes.pesquisarCliente(comparaCpf);
+                            	
                             break;
                             
                             default:
