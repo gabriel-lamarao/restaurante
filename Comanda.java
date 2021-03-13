@@ -1,6 +1,6 @@
 package restaurante;
 import java.util.Scanner;
-import java.time.LocalDate;
+
 /**
  *
  * @authors Aíla Maciel, Gabriel Lamarão
@@ -10,17 +10,12 @@ public class Comanda {
 	private double valorTotal;
 	private int totalItensPedidos;
 	private Item[] itensPedidos;
-	private double numPessoas;        
-        LocalDate localDate;
-        
-        Descontos desconto = new Descontos();
-        Cliente cliente = new Cliente();
+	private double numPessoas;
         
 	Scanner entrada = new Scanner(System.in);
 
 	public Comanda(int i) {
             itensPedidos = new Item[i];
-            this.localDate = LocalDate.now();
 	}
 
 	public int getTotalItensPedidos() {
@@ -31,9 +26,6 @@ public class Comanda {
             return valorTotal;
         }         
 
-        public void setValorTotal(double valorTotal){
-            this.valorTotal = valorTotal;
-        }    
 	public void dividirConta() {
             System.out.println("Deseja dividir a conta para quantas pessoas?");
             numPessoas = entrada.nextDouble(); // coloquei double só pra não ter o trabalho de converter int depois
@@ -89,7 +81,6 @@ public class Comanda {
 	}
 
 	public void conta() {
-            int resp;
             if(totalItensPedidos > 0){
                 System.out.println("Comanda:");
 		for (int i = 0; i < itensPedidos.length; i++) {
@@ -97,82 +88,28 @@ public class Comanda {
                         System.out.println(itensPedidos[i].getNome() + "    R$" + itensPedidos[i].getPreco());
                     }
 		}
-
-                do{
-                    System.out.println("Deseja adicionar algum desconto?");
-                    System.out.println("1- Sim");
-                    System.out.println("2- Não");
-                    resp = entrada.nextInt();
-                    switch (resp) {
-                        case 1:
-                            addDesconto();
-                        break;
-                    
-                        case 2:
-                            System.out.println(" ");
-                        break;
-                        
-                        default:
-                            System.out.println("Insira uma resposta válida!");
-                        break;
-                    }
-                }while(resp != 1 && resp != 2);
-                
-                System.out.println("Deseja dividir o valor da conta entre pessoas?");
-                System.out.println("1- Sim");
-                System.out.println("2- Não");
-                resp = entrada.nextInt();
-        
-                switch(resp){
-                    case 1:
-                        this.dividirConta();
-                    break;
-            
-                    case 2:
-                        System.out.println("Total: R$" + valorTotal);
-                    break;
-            
-                    default:
-                        System.out.println("Opção inválida!");
-                    break;    
-                }                
-                //System.out.println("Total: R$" + valorTotal);
-            }else{
-                System.out.println("A comanda está vazia!");
-            }
-        }        
-
-        
-        public void addDesconto(){
-            System.out.println("Selecione o desconto a ser aplicado: ");
-            System.out.println("1- Desconto padrão (5%)");
-            System.out.println("2- Desconto de aniversariante");
-            System.out.println("3- Desconto de fidelidade");
-            System.out.println("4- Desconto manual");
+            System.out.println("Deseja dividir o valor da conta entre pessoas?");
+            System.out.println("1- Sim");
+            System.out.println("2- Não");
             int resp = entrada.nextInt();
-                            
-            switch (resp){
+        
+            switch(resp){
                 case 1:
-                    //desconto.descontoPadrao(valorTotal);
-                    setValorTotal(desconto.descontoPadrao(valorTotal));
+                    this.dividirConta();
                 break;
-                                
+            
                 case 2:
-                    desconto.descontoAniversario(valorTotal, cliente, this);
+                    System.out.println("Total: R$" + valorTotal);
                 break;
-                            
-                case 3:
-                    desconto.descontoFidelidade(valorTotal, cliente);
-                break;
-                            
-                case 4:
-                    desconto.descontoPadrao(valorTotal);
-                break;
-                            
+            
                 default:
                     System.out.println("Opção inválida!");
-                break;
-            }                       
+                break;    
+            }                
+                //System.out.println("Total: R$" + valorTotal);
+                }else{
+                    System.out.println("A comanda está vazia!");
+                }
         }
-        
+               
 }

@@ -1,6 +1,5 @@
 package restaurante;
 import java.util.Scanner;
-import java.time.format.DateTimeFormatter;
 /**
  *
  * @authors Aíla Maciel, Gabriel Lamarão
@@ -13,7 +12,6 @@ public class Main {
         double valorBalanco = 0;
         double valorComanda = 0;
         
-        DateTimeFormatter formatadorBarra = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         Scanner entrada = new Scanner(System.in);
         int op;
         
@@ -128,7 +126,6 @@ public class Main {
                     do {
                     int paraOCarrinho;
                         System.out.println("\n==== Comanda ====\n");
-                        System.out.println(cardapio.comanda.localDate.format(formatadorBarra));
                         System.out.println("1- Mostrar Cardapio");
                         System.out.println("2- Adicionar item na comanda");
                         System.out.println("3- Remover item na comanda");
