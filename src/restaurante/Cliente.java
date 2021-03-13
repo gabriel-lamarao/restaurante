@@ -7,24 +7,21 @@ import java.util.Scanner;
 public class Cliente {
     
     protected String nome;
-    protected int totalDeClientes;
-    //protected int id;
+    
+    //protected int id; O ID PODE SER O INDEX DO ARRAY INDICANDO SUA POSICAO NA LISTA DE CLIENTES
     protected int pedidos;
     protected Data aniversario;
     protected boolean ativo;
     protected String cpf;
     protected boolean cpfvalido;
-    
-    // Criar o vetor de clientes
-    Cliente[] clientes; 
+    protected int totalDeClientes;
     
     Scanner entrada = new Scanner(System.in);
 	
-    public Cliente() {
-	clientes = new Cliente[1];
-        aniversario = new Data();
-        this.ativo = true;
-    }
+	public Cliente() {
+		aniversario = new Data();
+		this.ativo = true;
+	}
 
     public String getNome(){
         return this.nome;
@@ -50,24 +47,7 @@ public class Cliente {
         this.pedidos = pedidos;
     }    
     
-    public void adicionaCliente(Cliente cliente) {
-    //novo cliente
-        if(totalDeClientes < clientes.length) {
-            clientes[totalDeClientes] = new Cliente();
-            clientes[totalDeClientes] = cliente;
-            totalDeClientes++;
-	}else {
-            int novoTamanho = clientes.length + 1;
-            Cliente[] novoArray = new Cliente[novoTamanho];
-            
-            for (int i = 0; i < clientes.length; i++){
-                novoArray[i] = clientes[i];
-            }
-        novoArray[clientes.length] = cliente;
-        clientes = novoArray;
-        totalDeClientes++;
-	}
-    }
+
 
     public void cadastrarCliente(){
         System.out.println("Digite o CPF do cliente: ");
@@ -95,6 +75,8 @@ public class Cliente {
         ativo = false;
     }
 
+    
+    
     public void exibirCliente(){        
         System.out.println("Nome: " + this.nome);
         System.out.println("CPF: " + this.cpf);
