@@ -1,5 +1,7 @@
 package restaurante;
 import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 /**
  *
  * @author Aíla Maciel, Gabriel Lamarão
@@ -7,21 +9,24 @@ import java.util.Scanner;
 public class Cliente {
     
     protected String nome;
-    
-    //protected int id; O ID PODE SER O INDEX DO ARRAY INDICANDO SUA POSICAO NA LISTA DE CLIENTES
+    protected int totalDeClientes;
+    //protected int id;
     protected int pedidos;
-    protected Data aniversario;
     protected boolean ativo;
     protected String cpf;
     protected boolean cpfvalido;
-    protected int totalDeClientes;
+    LocalDate nascimento;
     
+    // Criar o vetor de clientes
+    Cliente[] clientes; 
+    
+    DateTimeFormatter formatadorBarra = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     Scanner entrada = new Scanner(System.in);
 	
-	public Cliente() {
-		aniversario = new Data();
-		this.ativo = true;
-	}
+    public Cliente() {
+	clientes = new Cliente[1];
+        this.ativo = true;
+    }
 
     public String getNome(){
         return this.nome;
@@ -32,11 +37,11 @@ public class Cliente {
     }
 
     public String getCPF(){
-    return this.cpf;
+        return this.cpf;
     }
     
     public void setCPF(String cpf){
-    this.cpf = cpf;
+        this.cpf = cpf;
     }    
     
     public int getPedidos(){
@@ -47,7 +52,24 @@ public class Cliente {
         this.pedidos = pedidos;
     }    
     
-
+    public void adicionaCliente(Cliente cliente) {
+    //novo cliente
+        if(totalDeClientes < clientes.length) {
+            clientes[totalDeClientes] = new Cliente();
+            clientes[totalDeClientes] = cliente;
+            totalDeClientes++;
+	}else {
+            int novoTamanho = clientes.length + 1;
+            Cliente[] novoArray = new Cliente[novoTamanho];
+            
+            for (int i = 0; i < clientes.length; i++){
+                novoArray[i] = clientes[i];
+            }
+        novoArray[clientes.length] = cliente;
+        clientes = novoArray;
+        totalDeClientes++;
+	}
+    }
 
     public void cadastrarCliente(){
         System.out.println("Digite o CPF do cliente: ");
@@ -60,11 +82,12 @@ public class Cliente {
             System.out.println("Digite a data de nascimento do cliente: ");
             System.out.println("Obs.: Formato DD/MM/AAAA");
             System.out.println("Dia: ");
-            this.aniversario.dia = entrada.nextInt();
+            int dia = entrada.nextInt();
             System.out.println("Mês: ");
-            this.aniversario.mes = entrada.nextInt();
+            int mes = entrada.nextInt();
             System.out.println("Ano: ");
-            this.aniversario.ano = entrada.nextInt();
+            int ano = entrada.nextInt();
+            this.nascimento = LocalDate.of(ano, mes, dia);
             totalDeClientes = totalDeClientes + 1;
         } else{
             System.out.println("Cadastre um CPF válido.");
@@ -75,12 +98,10 @@ public class Cliente {
         ativo = false;
     }
 
-    
-    
     public void exibirCliente(){        
         System.out.println("Nome: " + this.nome);
         System.out.println("CPF: " + this.cpf);
-        System.out.println("Data de nascimento: " + this.aniversario.dia + "/" + this.aniversario.mes + "/" + this.aniversario.ano);
+        System.out.println("Data de nascimento: " + this.nascimento.format(formatadorBarra));
         //System.out.println("Nível no programa de fidelidade: ");
         if(this.ativo = true){
             System.out.println("Este cadastro está ativo");

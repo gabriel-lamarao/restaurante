@@ -1,5 +1,6 @@
 package restaurante;
 import java.util.Scanner;
+import java.time.format.DateTimeFormatter;
 /**
  *
  * @authors Aíla Maciel, Gabriel Lamarão
@@ -12,14 +13,13 @@ public class Main {
         double valorBalanco = 0;
         double valorComanda = 0;
         
+        DateTimeFormatter formatadorBarra = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         Scanner entrada = new Scanner(System.in);
         int op;
         
         Estoque estoque = new Estoque(1);
         Cardapio cardapio = new Cardapio();  
         Cliente cliente = new Cliente();
-        Clientes clientes = new Clientes(1);
-        Item item = new Item();
         
         do{
             System.out.println("Menu restaurante");
@@ -40,13 +40,13 @@ public class Main {
             int cod;
             int compara1 = 0;
             int compara2 = 0;
-            String comparaCpf;
         
             switch(op){
                 case 1:
-                    item.cadastra();
-                    item.codigo = estoque.controle;
-                    estoque.adicionar(item);
+                    Item ii = new Item();
+                    ii.cadastra();
+                    ii.codigo = estoque.controle;
+                    estoque.adicionar(ii);
                 break;
             
                 case 2:                
@@ -128,6 +128,7 @@ public class Main {
                     do {
                     int paraOCarrinho;
                         System.out.println("\n==== Comanda ====\n");
+                        System.out.println(cardapio.comanda.localDate.format(formatadorBarra));
                         System.out.println("1- Mostrar Cardapio");
                         System.out.println("2- Adicionar item na comanda");
                         System.out.println("3- Remover item na comanda");
@@ -214,37 +215,24 @@ public class Main {
                         op = entrada.nextInt();
                         
                         switch(op){
-						case 1:
-							cliente.cadastrarCliente();
-							if (cliente.cpfvalido == true) {
-								clientes.adicionar(cliente);
-								System.out.println("Cliente cadastrado!");
-								cliente.exibirCliente();
-								System.out.println(cliente.totalDeClientes);
-							} else {
-								System.out.println(" ");
-							}
+                            case 1:
+                                Cliente c = new Cliente();
+                                c.cadastrarCliente();
+                                if(c.cpfvalido == true){
+                                c.adicionaCliente(c);                                
+                                System.out.println("Cliente cadastrado!");
+                                c.exibirCliente();
+                                } else{
+                                    System.out.println(" ");
+                                }
                             break;
                             
                             case 2:
-                            	// desativar busca o cliente pelo cpf
-                            	System.out.println("Insira o cpf do cliente: ");
-                            	comparaCpf = entrada.next();
-                            	for(int i=0; i<clientes.clientes.length; i++) {
-                            		if(clientes.clientes[i].cpf == comparaCpf) {
-                            			clientes.clientes[i].desativa();
-                            		}else {
-                            			System.out.println("erro: cpf nao encontrado ou invalido!");
-                            		}
-                            	}
+                                //desativar cliente aqui
                             break;
                             
                             case 3:
-                            	// procurar cliente na lista
-                            	System.out.println("Insira o cpf do cliente: ");
-                            	comparaCpf = entrada.next();
-                                clientes.pesquisarCliente(comparaCpf);
-                            	
+                                //procurar cadastro aqui
                             break;
                             
                             default:
