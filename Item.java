@@ -1,5 +1,6 @@
 package restaurante;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -75,11 +76,12 @@ public class Item {
     
     public void cadastra(){
 
-            System.out.println("Selecione a categoria do produto:");
-            System.out.println("1- Comida");
-            System.out.println("2- Bebida");
-            System.out.println("3- Sobremesa");
-            //System.out.println("98- Cancelar ação");
+        System.out.println("Selecione a categoria do produto:");
+        System.out.println("1- Comida");
+        System.out.println("2- Bebida");
+        System.out.println("3- Sobremesa");
+        try{
+
             opcao = op.nextInt(); 
             switch(opcao) {
                 case 1:
@@ -100,14 +102,25 @@ public class Item {
             }
         
             System.out.println("Insira o nome: ");
-            this.nome = op.next();
+            Scanner nomeItem = new Scanner(System.in);
+            try{
+                this.nome = nomeItem.nextLine();
+            }catch(InputMismatchException e){
+                System.out.println("Insira apenas caracteres válidos (letras e números)");
+            }
             System.out.println("Insira o preço");
-            this.preco = op.nextDouble();
+            try{
+                this.preco = op.nextDouble();
+            }catch(InputMismatchException e){
+                System.out.println("Insira apenas caracteres válidos (números)");
+            }
             totalDeProdutos = totalDeProdutos+1;
             
         
             System.out.println("Produto cadastrado!");
-       
+        }catch(InputMismatchException e){
+            System.out.println("Insira apenas caracteres válidos (números)");
+        } 
     }
     
     public void editar(){        
@@ -116,52 +129,68 @@ public class Item {
         System.out.println("3- Editar Preço");
         System.out.println("4- Desativar/Reativar Item");
         System.out.println("Digite a opção desejada:");
-                
-        opcao = op.nextInt();
+        try{        
+            opcao = op.nextInt();
     			    			
-    	switch (opcao) {
-            case 1:
-                System.out.println("==Editar Categoria==");
-		System.out.println("1- Comida");
-		System.out.println("2- Bebida");
-		System.out.println("3- Sobremesa");
-		System.out.println("Digite a opção desejada: ");
-                opcao = op.nextInt();
+            switch (opcao) {
+                case 1:
+                    System.out.println("==Editar Categoria==");
+                    System.out.println("1- Comida");
+                    System.out.println("2- Bebida");
+                    System.out.println("3- Sobremesa");
+                    System.out.println("Digite a opção desejada: ");
+                    
+                    try{
+                        opcao = op.nextInt();
                         
-		switch (opcao) {
-                    case 1:
-                        this.categoria = "Comida";
-                        System.out.println("Produto editado!");
-                    break;
+                        switch (opcao) {
+                        case 1:
+                            this.categoria = "Comida";
+                            System.out.println("Produto editado!");
+                        break;
                             
-                    case 2:
-                        this.categoria = "Bebida";
-                        System.out.println("Produto editado!");
-                    break;
+                        case 2:
+                            this.categoria = "Bebida";
+                            System.out.println("Produto editado!");
+                        break;
                             
-                    case 3:
-                        this.categoria = "Sobremesa";
-                        System.out.println("Produto editado!");
-                    break;                          
+                        case 3:
+                            this.categoria = "Sobremesa";
+                            System.out.println("Produto editado!");
+                        break;                          
                             
-                    default:
-                        System.out.println("Opcao Invalida");
-                    break;
-                }
-            break;
+                        default:
+                            System.out.println("Opcao Invalida");
+                        break;
+                        }
+                    }catch(InputMismatchException e){
+                        System.out.println("Insira apenas caracteres válidos (números)");
+                    }
+                break;
                         
             case 2:
                 System.out.println("==Editar Nome==");
+                Scanner nomeItem = new Scanner(System.in);
                 System.out.println("Insira o nome: ");
-                this.setNome(op.next());//.strip());
-                System.out.println("Produto editado!");
+                try{
+                    this.setNome(nomeItem.nextLine());//.strip());
+                    System.out.println("Produto editado!");
+                }catch(InputMismatchException e){
+                    System.out.println("Insira apenas caracteres válidos (letras e números)");
+                }
+
             break;
                             
             case 3:
                 System.out.println("==Editar Preco==");
                 System.out.println("Insira o preco: ");
-                this.setPreco(op.nextDouble());
-                System.out.println("Produto editado!");
+                try{
+                    this.setPreco(op.nextDouble());
+                    System.out.println("Produto editado!");
+                }catch(InputMismatchException e){
+                    System.out.println("Insira apenas caracteres válidos (números)");
+                }
+                
             break;
 
             case 4:
@@ -177,7 +206,11 @@ public class Item {
             default:
                 System.out.println("Opcao invalida!");
             break;
-	}    			
+	}
+        }catch(InputMismatchException e){
+            System.out.println("Insira apenas caracteres válidos (números)");
+        }
+        
     }        
     
     
@@ -185,12 +218,16 @@ public class Item {
         int adicionar;
         
         System.out.println("Insira a quantidade a ser adicionada: ");
-        adicionar = op.nextInt();       
-        this.quantidade = this.quantidade + adicionar;
+        try{
+            adicionar = op.nextInt();       
+            this.quantidade = this.quantidade + adicionar;
         
-        System.out.println("Entrada concluída!\n");
-        System.out.println("Nome: " + this.nome);
-        System.out.println("Quantidade: " + this.quantidade);
+            System.out.println("Entrada concluída!\n");
+            System.out.println("Nome: " + this.nome);
+            System.out.println("Quantidade: " + this.quantidade);
+        }catch(InputMismatchException e){
+            System.out.println("Insira apenas caracteres válidos (números)");
+        }        
     }    
     
     public void saidaEstoque(){
@@ -198,19 +235,18 @@ public class Item {
             int remover;
         
             System.out.println("Insira a quantidade a ser retirada: ");
-            remover = op.nextInt();       
-            this.quantidade = this.quantidade - remover;
+            try{
+                remover = op.nextInt();       
+                this.quantidade = this.quantidade - remover;
         
-            System.out.println("Saída concluída!\n");
-            System.out.println("Nome: " + this.nome);
-            System.out.println("Quantidade: " + this.quantidade);        
+                System.out.println("Saída concluída!\n");
+                System.out.println("Nome: " + this.nome);
+                System.out.println("Quantidade: " + this.quantidade);  
+            }catch(InputMismatchException e){
+                System.out.println("Insira apenas caracteres válidos (números)");
+            }            
         }else{
             System.out.println("Este produto está esgotado!");
         }
     }
-    
-    /*public void mostrarEstoque(){
-        System.out.println("Nome: " + this.nome);
-        System.out.println("Quantidade: " + this.quantidade);
-    }*/     
 }

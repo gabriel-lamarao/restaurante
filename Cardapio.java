@@ -21,27 +21,39 @@ public class Cardapio {
         
         switch(op){
             case 1:
-                for(int i=0; i < estoque.itens.length; i++) {
-                    if(estoque.itens[i].getCategoria().equals("Comida") && estoque.itens[i].consta == true){
-                        System.out.println("Código: " + estoque.itens[i].codigo + "\nNome: " + estoque.itens[i].getNome() + "\nPreço: R$" + estoque.itens[i].getPreco());
+                try{
+                    for(int i=0; i < estoque.itens.length; i++) {
+                        if(estoque.itens[i].getCategoria().equals("Comida") && estoque.itens[i].consta == true){
+                            System.out.println("Código: " + estoque.itens[i].codigo + "\nNome: " + estoque.itens[i].getNome() + "\nPreço: R$" + estoque.itens[i].getPreco());
+                        }
                     }
-                }
+                }catch(NullPointerException e){
+                    System.out.println("Erro ao exibir cardápio. Não há itens para exibir!");
+                }        
             break;
             
             case 2:
-                for(int i=0; i < estoque.itens.length; i++) {
-                    if(estoque.itens[i].getCategoria().equals("Bebida") && estoque.itens[i].consta == true){
-                        System.out.println("Código: " + estoque.itens[i].codigo + "\nNome: " + estoque.itens[i].getNome() + "\nPreço: R$" + estoque.itens[i].getPreco());
+                try{
+                    for(int i=0; i < estoque.itens.length; i++) {
+                        if(estoque.itens[i].getCategoria().equals("Bebida") && estoque.itens[i].consta == true){
+                            System.out.println("Código: " + estoque.itens[i].codigo + "\nNome: " + estoque.itens[i].getNome() + "\nPreço: R$" + estoque.itens[i].getPreco());
+                        }
                     }
-                }
+                }catch(NullPointerException e){
+                    System.out.println("Erro ao exibir cardápio. Não há itens para exibir!");
+                }                     
             break;            
 
             case 3:
-                for(int i=0; i < estoque.itens.length; i++) {
-                    if(estoque.itens[i].getCategoria().equals("Sobremesa") && estoque.itens[i].consta == true){
-                        System.out.println("Código: " + estoque.itens[i].codigo + "\nNome: " + estoque.itens[i].getNome() + "\nPreço: R$" + estoque.itens[i].getPreco());
+                try{
+                    for(int i=0; i < estoque.itens.length; i++) {
+                        if(estoque.itens[i].getCategoria().equals("Sobremesa") && estoque.itens[i].consta == true){
+                            System.out.println("Código: " + estoque.itens[i].codigo + "\nNome: " + estoque.itens[i].getNome() + "\nPreço: R$" + estoque.itens[i].getPreco());
+                        }
                     }
-                }
+                }catch(NullPointerException e){
+                    System.out.println("Erro ao exibir cardápio. Não há itens para exibir!");
+                }                     
             break;            
         }        
     }   

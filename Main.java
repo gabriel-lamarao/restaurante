@@ -1,6 +1,8 @@
 package restaurante;
 import java.util.Scanner;
 import java.time.format.DateTimeFormatter;
+import java.util.InputMismatchException;
+
 /**
  *
  * @authors Aíla Maciel, Gabriel Lamarão
@@ -19,9 +21,9 @@ public class Main {
         
         Estoque estoque = new Estoque(1);
         Cardapio cardapio = new Cardapio();  
-        Cliente cliente = new Cliente();
+        Clientes clientes = new Clientes(1);
         
-        do{
+        do{            
             System.out.println("Menu restaurante");
             System.out.println("Selecione a opção desejada: ");
             System.out.println("1- Cadastrar item");
@@ -34,19 +36,25 @@ public class Main {
             System.out.println("8- Balanço");
             System.out.println("9- Clientes");
             System.out.println("99 - Sair");
-        
+            
             op = entrada.nextInt();
+
             String produto;
+            String comparaCpf;
             int cod;
             int compara1 = 0;
             int compara2 = 0;
         
-            switch(op){
+           https://github.com/gabriel-lamarao/restaurante/pull/15/conflict?name=Item.java&base_oid=a26604c2d16eaec468759120ca88b33b919fbf56&head_oid=c5ea64a47116654df61f3092f3bb82f4ac5820f8 switch(op){
                 case 1:
                     Item ii = new Item();
                     ii.cadastra();
+                    if(ii.nome != null){
                     ii.codigo = estoque.controle;
                     estoque.adicionar(ii);
+                    }else{
+                        System.out.println("Erro no cadastro de item. Tente novamente.");
+                    }
                 break;
             
                 case 2:                
@@ -74,8 +82,12 @@ public class Main {
                 break;
             
                 case 3:
-                    for(int j = 0; j < estoque.itens.length; j++){
-                    estoque.itens[j].exibirItem();
+                    try{
+                        for(int j = 0; j < estoque.itens.length; j++){
+                        estoque.itens[j].exibirItem();
+                        }
+                    }catch(NullPointerException e){
+                        System.out.println("Não há itens para exibir");
                     }
                 break;
             
@@ -218,21 +230,43 @@ public class Main {
                             case 1:
                                 Cliente c = new Cliente();
                                 c.cadastrarCliente();
-                                if(c.cpfvalido == true){
-                                c.adicionaCliente(c);                                
-                                System.out.println("Cliente cadastrado!");
-                                c.exibirCliente();
+                                if(c.cpfvalido == true && c.nascimento != null){
+                                    clientes.adicionar(c);                                
+                                    System.out.println("Cliente cadastrado!");
+                                    c.exibirCliente();
                                 } else{
-                                    System.out.println(" ");
+                                    System.out.println("Erro ao cadastrar cliente. Tente novamente.");
                                 }
                             break;
                             
                             case 2:
-                                //desativar cliente aqui
+                                System.out.println("Insira o CPF do cliente: ");
+                                try{
+                                    comparaCpf = entrada.next();
+                                    try{
+                                        for(int i=0; i<clientes.clientes.length; i++) {
+                                            if(clientes.clientes[i].cpf.equals(comparaCpf)) {
+                                                clientes.clientes[i].desativa();
+                                            }else {
+                                                System.out.println("CPF não encontrado!");
+                                            }
+                                        }
+                                    }catch(NullPointerException e){
+                                        System.out.println("Não há itens para exibir");
+                                    }
+                                }catch(InputMismatchException e){
+                                    System.out.println("Insira apenas caracteres válidos (números)");
+                                }
                             break;
                             
                             case 3:
-                                //procurar cadastro aqui
+                                System.out.println("Insira o CPF do cliente: ");
+                                try{
+                                    comparaCpf = entrada.next();
+                                    clientes.pesquisarCliente(comparaCpf);
+                                }catch(InputMismatchException e){
+                                    System.out.println("Insira apenas caracteres válidos (números)");
+                                }
                             break;
                             
                             default:
@@ -243,8 +277,10 @@ public class Main {
                     }while(op != 98);
                 break;    
             }
+                                  
         } while(op != 99);
-        
+                
         entrada.close(); // Fecha o Scanner
-    }    
+    }
+    
 }
