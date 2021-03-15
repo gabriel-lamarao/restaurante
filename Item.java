@@ -80,8 +80,8 @@ public class Item {
         System.out.println("1- Comida");
         System.out.println("2- Bebida");
         System.out.println("3- Sobremesa");
-        //System.out.println("98- Cancelar ação");
         try{
+
             opcao = op.nextInt(); 
             switch(opcao) {
                 case 1:
@@ -120,8 +120,7 @@ public class Item {
             System.out.println("Produto cadastrado!");
         }catch(InputMismatchException e){
             System.out.println("Insira apenas caracteres válidos (números)");
-        }
-       
+        } 
     }
     
     public void editar(){        
@@ -130,7 +129,6 @@ public class Item {
         System.out.println("3- Editar Preço");
         System.out.println("4- Desativar/Reativar Item");
         System.out.println("Digite a opção desejada:");
-        
         try{        
             opcao = op.nextInt();
     			    			
@@ -180,6 +178,7 @@ public class Item {
                 }catch(InputMismatchException e){
                     System.out.println("Insira apenas caracteres válidos (letras e números)");
                 }
+
             break;
                             
             case 3:
@@ -191,6 +190,7 @@ public class Item {
                 }catch(InputMismatchException e){
                     System.out.println("Insira apenas caracteres válidos (números)");
                 }
+                
             break;
 
             case 4:
@@ -249,9 +249,4 @@ public class Item {
             System.out.println("Este produto está esgotado!");
         }
     }
-    
-    /*public void mostrarEstoque(){
-        System.out.println("Nome: " + this.nome);
-        System.out.println("Quantidade: " + this.quantidade);
-    }*/     
 }

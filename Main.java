@@ -2,6 +2,7 @@ package restaurante;
 import java.util.Scanner;
 import java.time.format.DateTimeFormatter;
 import java.util.InputMismatchException;
+
 /**
  *
  * @authors Aíla Maciel, Gabriel Lamarão
@@ -44,7 +45,7 @@ public class Main {
             int compara1 = 0;
             int compara2 = 0;
         
-            switch(op){
+           https://github.com/gabriel-lamarao/restaurante/pull/15/conflict?name=Item.java&base_oid=a26604c2d16eaec468759120ca88b33b919fbf56&head_oid=c5ea64a47116654df61f3092f3bb82f4ac5820f8 switch(op){
                 case 1:
                     Item ii = new Item();
                     ii.cadastra();

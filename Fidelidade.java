@@ -13,6 +13,7 @@ public class Fidelidade extends Descontos{
 	
 	@Override
 	public double descontoFidelidade(double valor, Cliente cliente) {
+
             //o cliente devera armazenar o seu numero de pedidos;
             if(cliente.pedidos > 0 && cliente.pedidos<=10) {
 		super.desconto = valor - (valor*nivel1);
@@ -27,7 +28,6 @@ public class Fidelidade extends Descontos{
 		return super.descontoPadrao(valor);
             }
 	}
-        
 	// niveis de fidelidade
 	// nivel 1: de 0 a 10 x% de desconto
 	// nivel 2: 11 a 20 x+x % de desconto

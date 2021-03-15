@@ -3,6 +3,7 @@ import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.InputMismatchException;
+
 /**
  *
  * @author Aíla Maciel, Gabriel Lamarão
@@ -112,6 +113,7 @@ public class Cliente {
             }catch(InputMismatchException e){
                 System.out.println("Insira apenas caracteres válidos (números)");
             }
+
     }
     
     public void desativa(){
@@ -122,7 +124,6 @@ public class Cliente {
         System.out.println("Nome: " + this.nome);
         System.out.println("CPF: " + this.cpf);
         System.out.println("Data de nascimento: " + this.nascimento.format(formatadorBarra));
-        System.out.println(nivelFidelidade());
         if(this.ativo = true){
             System.out.println("Este cadastro está ativo");
         } else{
@@ -218,5 +219,5 @@ public class Cliente {
             nivel = "Nível 3 no programa de fidelidade";
         }
         return nivel;
-    }    
+    } 
 }
