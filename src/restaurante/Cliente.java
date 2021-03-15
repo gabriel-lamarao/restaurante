@@ -2,6 +2,8 @@ package restaurante;
 import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.InputMismatchException;
+
 /**
  *
  * @author Aíla Maciel, Gabriel Lamarão
@@ -15,7 +17,9 @@ public class Cliente {
     protected boolean ativo;
     protected String cpf;
     protected boolean cpfvalido;
+    int dia, mes, ano;
     LocalDate nascimento;
+    protected String nivel;
     
     // Criar o vetor de clientes
     Cliente[] clientes; 
@@ -74,24 +78,42 @@ public class Cliente {
     public void cadastrarCliente(){
         System.out.println("Digite o CPF do cliente: ");
         System.out.println("Obs.: apenas números");
-        this.cpf = entrada.next();
-        validaCPF(this.cpf);
-        if(this.cpfvalido == true){
-            System.out.println("Digite o nome do cliente: ");
-            this.nome = entrada.next();
-            System.out.println("Digite a data de nascimento do cliente: ");
-            System.out.println("Obs.: Formato DD/MM/AAAA");
-            System.out.println("Dia: ");
-            int dia = entrada.nextInt();
-            System.out.println("Mês: ");
-            int mes = entrada.nextInt();
-            System.out.println("Ano: ");
-            int ano = entrada.nextInt();
-            this.nascimento = LocalDate.of(ano, mes, dia);
-            totalDeClientes = totalDeClientes + 1;
-        } else{
-            System.out.println("Cadastre um CPF válido.");
-        }
+        try{
+            this.cpf = entrada.next();
+            validaCPF(this.cpf);
+            if(this.cpfvalido == true){
+                Scanner entradanome = new Scanner (System.in);
+                System.out.println("Digite o nome do cliente: ");
+                this.nome = entradanome.nextLine();
+                System.out.println("Digite a data de nascimento do cliente: ");
+                System.out.println("Obs.: Formato DD/MM/AAAA");
+                System.out.println("Dia: ");
+                try{
+                    dia = entrada.nextInt();
+                }catch(InputMismatchException e){
+                    System.out.println("Insira apenas caracteres válidos (números)");
+                }            
+                System.out.println("Mês: ");
+                try{
+                    mes = entrada.nextInt();
+                }catch(InputMismatchException e){
+                    System.out.println("Insira apenas caracteres válidos (números)");
+                }            
+                System.out.println("Ano: ");
+                try{
+                    ano = entrada.nextInt();
+                    this.nascimento = LocalDate.of(ano, mes, dia);
+                    totalDeClientes = totalDeClientes + 1;
+                }catch(InputMismatchException e){
+                    System.out.println("Insira apenas caracteres válidos (números)");
+                }            
+            } else{
+                System.out.println("Cadastre um CPF válido.");
+            }
+            }catch(InputMismatchException e){
+                System.out.println("Insira apenas caracteres válidos (números)");
+            }
+
     }
     
     public void desativa(){
@@ -102,7 +124,6 @@ public class Cliente {
         System.out.println("Nome: " + this.nome);
         System.out.println("CPF: " + this.cpf);
         System.out.println("Data de nascimento: " + this.nascimento.format(formatadorBarra));
-        //System.out.println("Nível no programa de fidelidade: ");
         if(this.ativo = true){
             System.out.println("Este cadastro está ativo");
         } else{
@@ -187,5 +208,16 @@ public class Cliente {
             }
         }
     }
-    
+
+    public String nivelFidelidade(){
+    //esse void serve pra exibir o nível de fidelidade do cliente
+        if(this.pedidos > 0 && this.pedidos<=10) {
+            nivel = "Nível 1 no programa de fidelidade";
+        }else if(this.pedidos >= 11 && this.pedidos <= 20) {
+            nivel = "Nível 2 no programa de fidelidade";
+        }else {
+            nivel = "Nível 3 no programa de fidelidade";
+        }
+        return nivel;
+    } 
 }
