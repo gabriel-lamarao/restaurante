@@ -7,13 +7,13 @@ import java.util.Scanner;
 
 public class Descontos {
 	
-	Scanner entrada = new Scanner(System.in);
+	
 
 	protected double desconto;
         int resp;
         
 	public double descontoPadrao(double valor) {
-		desconto = valor * (5 / 100);
+		desconto = valor * 0.05;
 		valor = valor - desconto;
 		return valor;
 	}
@@ -21,10 +21,11 @@ public class Descontos {
 	
 	public double descontoManual(double valor) {
 		System.out.println("Insira a porcentagem do desconto: ");
-		desconto = entrada.nextDouble();
-		desconto = valor * (desconto / 100);
-		valor = valor - desconto;
-		return valor;
+		Scanner entradaDescontoManual = new Scanner(System.in);
+		desconto = entradaDescontoManual.nextDouble();
+		desconto = valor * (desconto * 0.01);
+        valor = valor - desconto;
+        return valor;
 	}
 	
 	public double descontoFidelidade(double valor, Cliente cliente) {
@@ -32,11 +33,14 @@ public class Descontos {
 	}
 	
 	public double descontoAniversario(double valor, Cliente cliente, Comanda comanda) {
-            if(cliente.nascimento.isEqual(comanda.localDate)){
-                desconto = valor * (30/100);
-                valor = valor - desconto;
-            }
-		return valor;
+		if (cliente.nascimento.getDayOfMonth() == comanda.localDate.getDayOfMonth()
+				&& cliente.nascimento.getMonthValue() == comanda.localDate.getMonthValue()) {
+			desconto = valor * 0.3;
+			valor = valor - desconto;
+			return valor;
+		} else {
+			return valor;
+		}
 	}
 
 }

@@ -11,12 +11,14 @@ public class Estoque {
     int controle;
     Item[] itens;
     
-    Scanner op = new Scanner(System.in);
+    
     
     public Estoque(int totalDeProdutos){
-        itens = new Item[totalDeProdutos];
+        // instancia dados
+    	itens = new Item[totalDeProdutos];
     }
-
+    
+    // receber os atributos de itens.txt formatados para salvar no vetor de itens
     public void adicionar(Item it){
         if(controle < itens.length){
             itens[controle] = new Item();

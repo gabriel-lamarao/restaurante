@@ -13,10 +13,11 @@ public class Comanda {
 	private double numPessoas;        
         LocalDate localDate;
         
+        Fidelidade fidelidade = new Fidelidade();
         Descontos desconto = new Descontos();
         Cliente cliente = new Cliente();
         
-	Scanner entrada = new Scanner(System.in);
+	
 
 	public Comanda(int i) {
             itensPedidos = new Item[i];
@@ -36,7 +37,8 @@ public class Comanda {
         }    
 	public void dividirConta() {
             System.out.println("Deseja dividir a conta para quantas pessoas?");
-            numPessoas = entrada.nextDouble(); // coloquei double só pra não ter o trabalho de converter int depois
+            Scanner entradaDividir = new Scanner(System.in);
+            numPessoas = entradaDividir.nextDouble(); // coloquei double só pra não ter o trabalho de converter int depois
 
             double divisao = valorTotal / numPessoas;
 
@@ -88,8 +90,72 @@ public class Comanda {
             System.out.println("Carrinho: " + totalItensPedidos + " Total: R$" + valorTotal+"\n");
 	}
 
-	public void conta() {
-            int resp;
+	public void addDesconto(Cliente[] clientes){
+        System.out.println("1- Desconto padrão (5%)");
+        System.out.println("2- Desconto de aniversariante");
+        System.out.println("3- Desconto de fidelidade");
+        System.out.println("4- Desconto manual");
+        System.out.printf("Selecione o desconto a ser aplicado: ");
+        Scanner entradaAddDesconto = new Scanner(System.in);
+        int resp = entradaAddDesconto.nextInt();
+                        
+        switch (resp){
+		case 1:
+			// desconto.descontoPadrao(valorTotal);
+			// this.valorTotal = desconto.descontoPadrao(valorTotal);
+			double desc1 = desconto.descontoPadrao(valorTotal);
+			this.valorTotal = desc1;
+			break;
+
+		case 2:
+			System.out.printf("Insira seu cpf: ");
+			Scanner entradaDesconto = new Scanner(System.in);
+			String cpf = entradaDesconto.next();
+			boolean encontrado = false;
+			for(int i=0; i<clientes.length; i++) {
+				if(clientes[i].cpf.equals(cpf)) {
+					double desc2 = desconto.descontoAniversario(valorTotal, clientes[i], this);
+					this.valorTotal = desc2;
+					System.out.println("Desconto: "+desc2);
+					encontrado = true;
+				}
+			}
+			if(encontrado == false) {
+				System.out.println("cpf não encontrado");
+			}
+			break;
+
+		case 3:
+			System.out.printf("Insira seu cpf: ");
+			Scanner entradaFidelidade = new Scanner(System.in);
+			cpf = entradaFidelidade.next();
+			encontrado = false;
+			for (int i = 0; i < clientes.length; i++) {
+				if (clientes[i].cpf.matches(cpf)) {
+					double desc3 = fidelidade.descontoFidelidade(valorTotal, clientes[i]);
+					System.out.println("Desconto: "+desc3);
+					this.valorTotal = desc3;
+					encontrado = true;
+				}
+			}
+			if (encontrado == false) {
+				System.out.println("cpf não encontrado");
+			}
+			break;
+
+		case 4:
+			double desc4 = desconto.descontoManual(valorTotal);
+			this.valorTotal = desc4;
+			break;
+
+		default:
+			System.out.println("Opção inválida!");
+			break;
+		}            
+    }
+	
+	public void conta(Cliente[] clientes) {
+		int resp;
             if(totalItensPedidos > 0){
                 System.out.println("Comanda:");
 		for (int i = 0; i < itensPedidos.length; i++) {
@@ -99,13 +165,15 @@ public class Comanda {
 		}
 
                 do{
-                    System.out.println("Deseja adicionar algum desconto?");
+                	System.out.println("Deseja adicionar algum desconto?");
                     System.out.println("1- Sim");
                     System.out.println("2- Não");
-                    resp = entrada.nextInt();
+                    System.out.printf("Insira a opção desejada: ");
+                    Scanner entradaContaDesconto = new Scanner(System.in);
+                    resp = entradaContaDesconto.nextInt();
                     switch (resp) {
                         case 1:
-                            addDesconto();
+                            addDesconto(clientes);
                         break;
                     
                         case 2:
@@ -121,7 +189,9 @@ public class Comanda {
                 System.out.println("Deseja dividir o valor da conta entre pessoas?");
                 System.out.println("1- Sim");
                 System.out.println("2- Não");
-                resp = entrada.nextInt();
+                System.out.printf("Insira a opção desejada: ");
+                Scanner entradaResposta = new Scanner(System.in);
+                resp = entradaResposta.nextInt();
         
                 switch(resp){
                     case 1:
@@ -143,36 +213,6 @@ public class Comanda {
         }        
 
         
-        public void addDesconto(){
-            System.out.println("Selecione o desconto a ser aplicado: ");
-            System.out.println("1- Desconto padrão (5%)");
-            System.out.println("2- Desconto de aniversariante");
-            System.out.println("3- Desconto de fidelidade");
-            System.out.println("4- Desconto manual");
-            int resp = entrada.nextInt();
-                            
-            switch (resp){
-                case 1:
-                    //desconto.descontoPadrao(valorTotal);
-                    setValorTotal(desconto.descontoPadrao(valorTotal));
-                break;
-                                
-                case 2:
-                    desconto.descontoAniversario(valorTotal, cliente, this);
-                break;
-                            
-                case 3:
-                    desconto.descontoFidelidade(valorTotal, cliente);
-                break;
-                            
-                case 4:
-                    desconto.descontoPadrao(valorTotal);
-                break;
-                            
-                default:
-                    System.out.println("Opção inválida!");
-                break;
-            }                       
-        }
+        
         
 }

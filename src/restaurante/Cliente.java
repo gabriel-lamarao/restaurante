@@ -20,12 +20,16 @@ public class Cliente {
     int dia, mes, ano;
     LocalDate nascimento;
     protected String nivel;
+    protected int numeroDePedidos;
+    
     
     // Criar o vetor de clientes
     Cliente[] clientes; 
     
     DateTimeFormatter formatadorBarra = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     Scanner entrada = new Scanner(System.in);
+    
+    
 	
     public Cliente() {
 	clientes = new Cliente[1];
@@ -76,10 +80,11 @@ public class Cliente {
     }
 
     public void cadastrarCliente(){
+    	try{
         System.out.println("Digite o CPF do cliente: ");
         System.out.println("Obs.: apenas números");
-        try{
-            this.cpf = entrada.next();
+        Scanner entradaClienteClasse = new Scanner(System.in);    
+        this.cpf = entradaClienteClasse.next();
             validaCPF(this.cpf);
             if(this.cpfvalido == true){
                 Scanner entradanome = new Scanner (System.in);
@@ -89,19 +94,22 @@ public class Cliente {
                 System.out.println("Obs.: Formato DD/MM/AAAA");
                 System.out.println("Dia: ");
                 try{
-                    dia = entrada.nextInt();
+                	Scanner entradaDia = new Scanner(System.in);
+                    dia = entradaDia.nextInt();
                 }catch(InputMismatchException e){
                     System.out.println("Insira apenas caracteres válidos (números)");
                 }            
                 System.out.println("Mês: ");
                 try{
-                    mes = entrada.nextInt();
+                	Scanner entradaMes = new Scanner(System.in);
+                    mes = entradaMes.nextInt();
                 }catch(InputMismatchException e){
                     System.out.println("Insira apenas caracteres válidos (números)");
                 }            
                 System.out.println("Ano: ");
                 try{
-                    ano = entrada.nextInt();
+                	Scanner entradaAno = new Scanner(System.in);
+                    ano = entradaAno.nextInt();
                     this.nascimento = LocalDate.of(ano, mes, dia);
                     totalDeClientes = totalDeClientes + 1;
                 }catch(InputMismatchException e){

@@ -1,4 +1,5 @@
 package restaurante;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 /**
  *
@@ -8,56 +9,64 @@ import java.util.Scanner;
 public class Cardapio {
     Comanda comanda = new Comanda(1);
     
-    Scanner entrada = new Scanner(System.in);
+    
     int op;
     
-    public void mostraCardapio(Estoque estoque) {        
-        System.out.println("Selecione a categoria: ");
-        System.out.println("1 - Comidas");
-        System.out.println("2 - Bebidas");
-        System.out.println("3 - Sobremesas");
-        
-        op = entrada.nextInt();
-        
-        switch(op){
-            case 1:
-                try{
-                    for(int i=0; i < estoque.itens.length; i++) {
-                        if(estoque.itens[i].getCategoria().equals("Comida") && estoque.itens[i].consta == true){
-                            System.out.println("Código: " + estoque.itens[i].codigo + "\nNome: " + estoque.itens[i].getNome() + "\nPreço: R$" + estoque.itens[i].getPreco());
-                        }
-                    }
-                }catch(NullPointerException e){
-                    System.out.println("Erro ao exibir cardápio. Não há itens para exibir!");
-                }        
-            break;
-            
-            case 2:
-                try{
-                    for(int i=0; i < estoque.itens.length; i++) {
-                        if(estoque.itens[i].getCategoria().equals("Bebida") && estoque.itens[i].consta == true){
-                            System.out.println("Código: " + estoque.itens[i].codigo + "\nNome: " + estoque.itens[i].getNome() + "\nPreço: R$" + estoque.itens[i].getPreco());
-                        }
-                    }
-                }catch(NullPointerException e){
-                    System.out.println("Erro ao exibir cardápio. Não há itens para exibir!");
-                }                     
-            break;            
+	public void mostraCardapio(Estoque estoque) {
+		try {
+			System.out.println("Selecione a categoria: ");
+			System.out.println("1 - Comidas");
+			System.out.println("2 - Bebidas");
+			System.out.println("3 - Sobremesas");
+			
+			Scanner entrada = new Scanner(System.in);
+			op = entrada.nextInt();
 
-            case 3:
-                try{
-                    for(int i=0; i < estoque.itens.length; i++) {
-                        if(estoque.itens[i].getCategoria().equals("Sobremesa") && estoque.itens[i].consta == true){
-                            System.out.println("Código: " + estoque.itens[i].codigo + "\nNome: " + estoque.itens[i].getNome() + "\nPreço: R$" + estoque.itens[i].getPreco());
-                        }
-                    }
-                }catch(NullPointerException e){
-                    System.out.println("Erro ao exibir cardápio. Não há itens para exibir!");
-                }                     
-            break;            
-        }        
-    }   
-    
+			switch (op) {
+			case 1:
+				try {
+					for (int i = 0; i < estoque.itens.length; i++) {
+						if (estoque.itens[i].getCategoria().equals("Comida") && estoque.itens[i].consta == true) {
+							System.out.println("Código: " + estoque.itens[i].codigo + "\nNome: "
+									+ estoque.itens[i].getNome() + "\nPreço: R$" + estoque.itens[i].getPreco());
+						}
+					}
+				} catch (NullPointerException e) {
+					System.out.println("Erro ao exibir cardápio. Não há itens para exibir!");
+				}
+				break;
+
+			case 2:
+				try {
+					for (int i = 0; i < estoque.itens.length; i++) {
+						if (estoque.itens[i].getCategoria().equals("Bebida") && estoque.itens[i].consta == true) {
+							System.out.println("Código: " + estoque.itens[i].codigo + "\nNome: "
+									+ estoque.itens[i].getNome() + "\nPreço: R$" + estoque.itens[i].getPreco());
+						}
+					}
+				} catch (NullPointerException e) {
+					System.out.println("Erro ao exibir cardápio. Não há itens para exibir!");
+				}
+				break;
+
+			case 3:
+				try {
+					for (int i = 0; i < estoque.itens.length; i++) {
+						if (estoque.itens[i].getCategoria().equals("Sobremesa") && estoque.itens[i].consta == true) {
+							System.out.println("Código: " + estoque.itens[i].codigo + "\nNome: "
+									+ estoque.itens[i].getNome() + "\nPreço: R$" + estoque.itens[i].getPreco());
+						}
+					}
+				} catch (NullPointerException e) {
+					System.out.println("Erro ao exibir cardápio. Não há itens para exibir!");
+				}
+				break;
+			}
+		} catch (InputMismatchException e) {
+			System.out.println("Insira apenas caracteres válidos (números)");
+		}
+	}
+
     public void fazerPedido(Item i) {
     	comanda.adicionarItem(i);
     }
@@ -70,31 +79,8 @@ public class Cardapio {
     	comanda.carrinho();
     }
     
-    public void pedirConta() {
-    	comanda.conta();
-        
-        /*System.out.println("Deseja dividir o valor da conta entre pessoas?");
-        System.out.println("1- Sim");
-        System.out.println("2- Não");
-        int resp = entrada.nextInt();
-        
-        switch(resp){
-            case 1:
-                comanda.dividirConta();
-            break;
-            
-            case 2:
-                System.out.println("Total: R$" + comanda.getValorTotal());
-            break;
-            
-            default:
-                System.out.println("Opção inválida!");
-            break;    
-        }*/
+    public void pedirConta(Cliente[] clientes) {
+    	comanda.conta(clientes);
     }
     
 }
-
-/*	for(int i=0; i < estoque.itens.length; i++) {
-            System.out.println("Categoria: " + estoque.itens[i].getCategoria() + "\nNome: " + estoque.itens[i].getNome() + "\nPreço: R$" + estoque.itens[i].getPreco());
-            }*/
